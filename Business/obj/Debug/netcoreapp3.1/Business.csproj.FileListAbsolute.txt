@@ -1,0 +1,15 @@
+C:\Users\adesh\source\repos\FundoApp\Business\bin\Debug\netcoreapp3.1\Business.deps.json
+C:\Users\adesh\source\repos\FundoApp\Business\bin\Debug\netcoreapp3.1\Business.dll
+C:\Users\adesh\source\repos\FundoApp\Business\bin\Debug\netcoreapp3.1\Business.pdb
+C:\Users\adesh\source\repos\FundoApp\Business\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\adesh\source\repos\FundoApp\Business\bin\Debug\netcoreapp3.1\Repository.dll
+C:\Users\adesh\source\repos\FundoApp\Business\bin\Debug\netcoreapp3.1\Repository.pdb
+C:\Users\adesh\source\repos\FundoApp\Business\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\adesh\source\repos\FundoApp\Business\obj\Debug\netcoreapp3.1\Business.csproj.AssemblyReference.cache
+C:\Users\adesh\source\repos\FundoApp\Business\obj\Debug\netcoreapp3.1\Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\adesh\source\repos\FundoApp\Business\obj\Debug\netcoreapp3.1\Business.AssemblyInfoInputs.cache
+C:\Users\adesh\source\repos\FundoApp\Business\obj\Debug\netcoreapp3.1\Business.AssemblyInfo.cs
+C:\Users\adesh\source\repos\FundoApp\Business\obj\Debug\netcoreapp3.1\Business.csproj.CoreCompileInputs.cache
+C:\Users\adesh\source\repos\FundoApp\Business\obj\Debug\netcoreapp3.1\Business.csproj.CopyComplete
+C:\Users\adesh\source\repos\FundoApp\Business\obj\Debug\netcoreapp3.1\Business.dll
+C:\Users\adesh\source\repos\FundoApp\Business\obj\Debug\netcoreapp3.1\Business.pdb
