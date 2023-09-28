@@ -1,3 +1,5 @@
+using Business.Interface;
+using Business.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Repository.Context;
 using Repository.Entity;
+using Repository.Interface;
+using Repository.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +34,11 @@ namespace FundoApp
         {
              
             services.AddControllers();
-              //services.AddDbContextPool<FundoDBContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FundoDB"))); //NULL ,Value cannot be null. (Parameter 'connectionString')
+              //services.AddDbContext<FundoDBContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FundoDB"))); //NULL ,Value cannot be null. (Parameter 'connectionString')
             services.AddDbContext<FundoDBContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:FundoDB"]));  //Your target project 'FundoApp' doesn't match your migrations assembly 'Repository'.
-
+           
+            services.AddTransient<IUserBusiness, UserBusiness>();
+            services.AddTransient<IUserRepo, UserRepo>();
 
         }
 

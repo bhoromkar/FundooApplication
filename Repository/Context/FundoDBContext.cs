@@ -14,6 +14,38 @@ namespace Repository.Context
 
         }
         public DbSet<UserEntity> Users { get; set; }
+
+       /* protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserEntity>().HasData(new UserEntity
+            {
+                
+                FirstName = "Uncle",
+                LastName = "Bob",
+                Email = "uncle.bob@gmail.com",
+                Password = "password",
+            }, new UserEntity
+            {
+                
+                FirstName = "Jan",
+                LastName = "Kirsten",
+                Email = "jan.kirsten@gmail.com",
+                Password= "pass123",
+            },new  UserEntity
+            {
+                FirstName = "smith",
+                LastName = "Doe",
+                Email = "jane.doe@gmail.com",
+                Password = "password",
+            }, new UserEntity
+            {
+                FirstName = "alex",
+                LastName = "Doe",
+                Email = "john.doe@gmail.com",
+                Password = "password",
+            }
+            );
+        }*/
     }
 }
 

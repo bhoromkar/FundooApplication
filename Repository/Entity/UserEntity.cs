@@ -10,11 +10,10 @@ namespace Repository.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public long userId { get; set; }
         [Required]
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [Required]
         public string Email { get; set; }
         public string Password { get; set; }
 

@@ -9,8 +9,8 @@ using Repository.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(FundoDBContext))]
-    [Migration("20230927091439_USERENTITY5")]
-    partial class USERENTITY5
+    [Migration("20230928061655_Repository.Entity.user")]
+    partial class RepositoryEntityuser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,13 +22,12 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Entity.UserEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("userId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -41,7 +40,7 @@ namespace Repository.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("userId");
 
                     b.ToTable("Users");
                 });

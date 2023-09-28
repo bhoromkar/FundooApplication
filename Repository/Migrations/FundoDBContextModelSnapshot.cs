@@ -20,13 +20,12 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Repository.Entity.UserEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("userId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -39,7 +38,7 @@ namespace Repository.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("userId");
 
                     b.ToTable("Users");
                 });
