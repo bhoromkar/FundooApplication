@@ -17,6 +17,19 @@ namespace Business.Service
         {
             this._userRepository = userRepository;
         }
+
+        public UserLoginEntity UserLogin(LoginModel loginModel)
+        {
+            try
+            {
+                return _userRepository.UserLogin(loginModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public UserEntity UserRegistration(RegistrationModel registrationModel)
         {
             try
