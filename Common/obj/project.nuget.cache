@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "CHQq1Jd1njZfH6BENoxPYwKNSRB8zoncr1nKIxYWXd8ubTTr/w0JAfxA+L+TmjGtcj8mgiSqubLTZbQXB0lY9g==",
+  "dgSpecHash": "cJ+qj0PDAzfewFDWlejvewjf/110DvdpToOjQ1zBURltvLNvRYRvyCtJIP21WEg1I6HkNVerUl8WQlvDvNSY3g==",
   "success": true,
   "projectFilePath": "C:\\Users\\adesh\\source\\repos\\FundoApp\\Common\\Common.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\adesh\\.nuget\\packages\\experimental.system.messaging\\1.1.0\\experimental.system.messaging.1.1.0.nupkg.sha512",
+    "C:\\Users\\adesh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\adesh\\.nuget\\packages\\microsoft.openapi\\1.1.4\\microsoft.openapi.1.1.4.nupkg.sha512",
+    "C:\\Users\\adesh\\.nuget\\packages\\swashbuckle.aspnetcore\\5.2.1\\swashbuckle.aspnetcore.5.2.1.nupkg.sha512",
+    "C:\\Users\\adesh\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.2.1\\swashbuckle.aspnetcore.swagger.5.2.1.nupkg.sha512",
+    "C:\\Users\\adesh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.2.1\\swashbuckle.aspnetcore.swaggergen.5.2.1.nupkg.sha512",
+    "C:\\Users\\adesh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.2.1\\swashbuckle.aspnetcore.swaggerui.5.2.1.nupkg.sha512"
+  ],
   "logs": []
 }

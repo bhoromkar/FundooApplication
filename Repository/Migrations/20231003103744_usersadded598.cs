@@ -2,7 +2,7 @@
 
 namespace Repository.Migrations
 {
-    public partial class RepositoryEntityuser : Migration
+    public partial class usersadded598 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

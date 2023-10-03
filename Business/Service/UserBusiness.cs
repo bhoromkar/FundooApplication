@@ -18,6 +18,19 @@ namespace Business.Service
             this._userRepository = userRepository;
         }
 
+        public string Forgetpassword(string email )
+        {
+            try
+            {
+                return _userRepository.Forgetpassword(email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+                
+            }
+        }
+
         public UserLoginEntity UserLogin(LoginModel loginModel)
         {
             try

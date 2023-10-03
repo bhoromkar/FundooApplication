@@ -1,6 +1,7 @@
 C:\Users\adesh\source\repos\FundoApp\Common\bin\Debug\netcoreapp3.1\Common.deps.json
 C:\Users\adesh\source\repos\FundoApp\Common\bin\Debug\netcoreapp3.1\Common.dll
 C:\Users\adesh\source\repos\FundoApp\Common\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\adesh\source\repos\FundoApp\Common\obj\Debug\netcoreapp3.1\Common.csproj.AssemblyReference.cache
 C:\Users\adesh\source\repos\FundoApp\Common\obj\Debug\netcoreapp3.1\Common.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\adesh\source\repos\FundoApp\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfoInputs.cache
 C:\Users\adesh\source\repos\FundoApp\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
