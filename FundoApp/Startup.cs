@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Repository.Context;
 using Repository.Entity;
 using Repository.Interface;
@@ -35,7 +36,7 @@ namespace FundoApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<FundoDBContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:FundoDB"]));  //Your target project 'FundoApp' doesn't match your migrations assembly 'Repository'.
+            services.AddDbContext<FundoDBContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:FundooDB"]));  //Your target project 'FundoApp' doesn't match your migrations assembly 'Repository'.
 
             services.AddTransient<IUserBusiness, UserBusiness>();
             services.AddTransient<IUserRepo, UserRepo>();
@@ -43,27 +44,33 @@ namespace FundoApp
             //services.AddDbContext<FundoDBContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FundoDB"))); //NULL ,Value cannot be null. (Parameter 'connectionString')
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-               .AddJwtBearer(options =>  {
-               options.TokenValidationParameters = new TokenValidationParameters
-               {
-                   ValidateIssuerSigningKey = true,
-                   ValidateIssuer = true,
-                   ValidateAudience = true,
-                   ValidateLifetime = true,
-                   ValidIssuer = Configuration["JWT:Issuer"],
-                   ValidAudience = Configuration["JWT:Audience"],
-                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
-               };  
+               .AddJwtBearer(options => {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuerSigningKey = true,
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       ValidIssuer = Configuration["JWT:Issuer"],
+                       ValidAudience = Configuration["JWT:Audience"],
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"]))
+                   };
                });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",new OpenApiInfo { Title = "FundoApp", Version = "v1" });
+            });
+        
+
             services.AddMvc();
             services.AddControllers();
            
 
         }
-               
-           
 
-        
+
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -72,6 +79,12 @@ namespace FundoApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            { 
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        });
+ 
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();  

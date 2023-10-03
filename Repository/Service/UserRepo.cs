@@ -11,6 +11,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using System.Data;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.VisualBasic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Service
 {
@@ -18,7 +21,7 @@ namespace Repository.Service
     {
         private readonly FundoDBContext _userDBContext;
         private readonly IConfiguration Iconfiguration;
-       
+
 
         public UserRepo(FundoDBContext userDBContext, IConfiguration configuration)
         {
@@ -26,7 +29,7 @@ namespace Repository.Service
             this._userDBContext = userDBContext;
         }
 
-        public UserLoginEntity UserLogin(LoginModel loginModel) 
+        public UserLoginEntity UserLogin(LoginModel loginModel)
         {
             try
             {
@@ -34,14 +37,16 @@ namespace Repository.Service
                 user.Email = loginModel.Email;
                 user.Password = loginModel.Password;
                 var result = Authenticate(user);
-
-               // var user = _userDBContext.Users.FirstOrDefault(x => x.Email == userLoginToken.LoginModel.Email && x.Password == userLoginToken.LoginModel.Password);
+             
+                // var user = _userDBContext.Users.FirstOrDefault(x => x.Email == userLoginToken.LoginModel.Email && x.Password == userLoginToken.LoginModel.Password);
                 if (user != null)
                 {
-                    var tokenstring = GenerateToken(user);
+                    
+                    var tokenstring = GenerateToken(user.Email,user.userId);
                     UserLoginEntity userLoginEntity = new UserLoginEntity();
                     userLoginEntity.Token = tokenstring;
-                    userLoginEntity.userEntity = user;
+                    userLoginEntity.Email= user.Email;
+                    userLoginEntity.Password= user.Password;    
                     return userLoginEntity;
 
 
@@ -61,6 +66,7 @@ namespace Repository.Service
                 var result = _userDBContext.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
                 if (result != null)
                 {
+
                     return result;
                 }
                 return null;
@@ -71,16 +77,17 @@ namespace Repository.Service
             }
         }
 
-    
 
-        private string GenerateToken(UserEntity user)
+
+        private string GenerateToken(string email ,long userId)
         {
             var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Iconfiguration["JWT:Key"]));
             var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
-          new Claim(ClaimTypes.Email, user.Email.ToString()),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+          new Claim(ClaimTypes.Email, email),
+          new Claim("UserID", userId.ToString()),
+           
             };
             var Token = new JwtSecurityToken(Iconfiguration["JWT:Issuer"],
                 Iconfiguration["JWT:Audience"], claims,
@@ -107,16 +114,40 @@ namespace Repository.Service
                 return userEntity;
             }
             catch (Exception ex)
-            { 
+            {
                 throw new Exception(ex.Message);
             }
 
         }
-        //public UserEntity Forgetpassword(forgetpass forgetpass)
-        //{
-          
+        public string Forgetpassword(string email)
+        {
+            try
+            {
+              var Isemail= this._userDBContext.Users.Where(a => a.Email == email).FirstOrDefault(); 
+                //user = _userDBContext.Users.FirstOrDefault(x => x.Email == user.Email);
+                //long UserId = user.userId;
 
-        //}
 
+                if (Isemail != null)
+                {
+                    string Token = GenerateToken( email,Isemail.userId);
+                    
+                    MSMQService sMQService = new MSMQService();
+
+                    sMQService.SendMessage(Token);
+
+                    return Token;
+                }
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
+
+   
+

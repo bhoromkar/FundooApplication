@@ -9,8 +9,8 @@ using Repository.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(FundoDBContext))]
-    [Migration("20230929093042_userlogin")]
-    partial class userlogin
+    [Migration("20231003103744_usersadded598")]
+    partial class usersadded598
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

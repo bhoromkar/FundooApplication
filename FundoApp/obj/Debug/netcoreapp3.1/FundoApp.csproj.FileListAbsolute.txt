@@ -6,6 +6,7 @@ C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\FundoApp.r
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\FundoApp.runtimeconfig.dev.json
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\FundoApp.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\FundoApp.pdb
+C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Experimental.System.Messaging.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
@@ -21,7 +22,11 @@ C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
@@ -41,10 +46,13 @@ C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Business.p
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Common.pdb
 C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Repository.pdb
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.csproj.AssemblyReference.cache
+C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.Properties.Resources.resources
+C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.csproj.GenerateResource.cache
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.AssemblyInfoInputs.cache
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.AssemblyInfo.cs
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.csproj.CoreCompileInputs.cache
+C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\staticwebassets\FundoApp.StaticWebAssets.Manifest.cache
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\staticwebassets\FundoApp.StaticWebAssets.Pack.cache

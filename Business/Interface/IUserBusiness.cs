@@ -10,5 +10,6 @@ namespace Business.Interface
     {
         public UserEntity UserRegistration(RegistrationModel registrationModel);
         public UserLoginEntity UserLogin(LoginModel loginModel);
+        public string Forgetpassword(string email);
     }
 }
