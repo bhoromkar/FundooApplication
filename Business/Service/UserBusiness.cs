@@ -31,7 +31,32 @@ namespace Business.Service
             }
         }
 
-        public UserLoginEntity UserLogin(LoginModel loginModel)
+        public IEnumerable<UserEntity> GetUsers()
+        {
+            try
+            {
+                return _userRepository.GetUsers();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool ResetPassword(string email, ResetPasswordModel resetPasswordModel)
+        {
+
+            try
+            {
+                return _userRepository.ResetPassword(email, resetPasswordModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+            public UserLoginEntity UserLogin(LoginModel loginModel)
         {
             try
             {
@@ -54,5 +79,7 @@ namespace Business.Service
 
             }
         }
+
+
     }
 }

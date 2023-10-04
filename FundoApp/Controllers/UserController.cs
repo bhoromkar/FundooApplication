@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Entity;
 using System;
+using System.Security.Claims;
 
 namespace FundoApp.Controllers
 {
@@ -40,10 +41,10 @@ namespace FundoApp.Controllers
             var result = _userBusiness.UserLogin(loginModel);
             if (result != null)
             {
-                return Ok(result);
+                return Ok(new { success = true, Message = "Login Successful", result });
             }
-            return BadRequest();
-
+            return BadRequest(new { success = true, Message = "Invalid Login Details!" });
+        
         }
 
         [HttpPost]
@@ -57,9 +58,49 @@ namespace FundoApp.Controllers
                 {
                     return Ok(new { success = true, message = "password link sent succesfully" });
                 }
-                return BadRequest(new { success = false, message = "Invalid Email!" });
+                return NotFound(new { success = false, message = "Invalid Email!" });
 
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("ResetPassword")]
+        public IActionResult ResetPassword(ResetPasswordModel resetPasswordModel)
+        {
+            try
+            {
+                var email = User.FindFirst(ClaimTypes.Email).Value.ToString();
+                var result = _userBusiness.ResetPassword(email, resetPasswordModel);
+                if (result == true)
+                {
+                    return Ok(new { success = true, message = "password reset succesfully" });
+                }
+                return NotFound(new { success = false, message = "Invalid Email!" });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
+        [HttpGet]
+        [Route("GetUsers")]
+        public IActionResult GetUsers()
+        {
+            try
+            {
+                var result = _userBusiness.GetUsers();
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound();
             }
             catch (Exception ex)
             {
