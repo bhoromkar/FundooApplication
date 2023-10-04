@@ -11,5 +11,7 @@ namespace Business.Interface
         public UserEntity UserRegistration(RegistrationModel registrationModel);
         public UserLoginEntity UserLogin(LoginModel loginModel);
         public string Forgetpassword(string email);
+        public bool ResetPassword(string email, ResetPasswordModel resetPasswordModel);
+        public IEnumerable<UserEntity> GetUsers();  
     }
 }

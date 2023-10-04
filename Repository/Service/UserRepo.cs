@@ -14,6 +14,7 @@ using System.Data;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Repository.Service
 {
@@ -37,16 +38,16 @@ namespace Repository.Service
                 user.Email = loginModel.Email;
                 user.Password = loginModel.Password;
                 var result = Authenticate(user);
-             
+
                 // var user = _userDBContext.Users.FirstOrDefault(x => x.Email == userLoginToken.LoginModel.Email && x.Password == userLoginToken.LoginModel.Password);
                 if (user != null)
                 {
-                    
-                    var tokenstring = GenerateToken(user.Email,user.userId);
+
+                    var tokenstring = GenerateToken(user.Email, user.userId);
                     UserLoginEntity userLoginEntity = new UserLoginEntity();
                     userLoginEntity.Token = tokenstring;
-                    userLoginEntity.Email= user.Email;
-                    userLoginEntity.Password= user.Password;    
+                    userLoginEntity.Email = user.Email;
+                    userLoginEntity.Password = user.Password;
                     return userLoginEntity;
 
 
@@ -79,7 +80,7 @@ namespace Repository.Service
 
 
 
-        private string GenerateToken(string email ,long userId)
+        private string GenerateToken(string email, long userId)
         {
             var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Iconfiguration["JWT:Key"]));
             var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
@@ -87,11 +88,11 @@ namespace Repository.Service
             {
           new Claim(ClaimTypes.Email, email),
           new Claim("UserID", userId.ToString()),
-           
+
             };
             var Token = new JwtSecurityToken(Iconfiguration["JWT:Issuer"],
                 Iconfiguration["JWT:Audience"], claims,
-                expires: DateTime.Now.AddMinutes(30), signingCredentials: credentials);
+                expires: DateTime.Now.AddMinutes(60), signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(Token);
 
@@ -123,15 +124,15 @@ namespace Repository.Service
         {
             try
             {
-              var Isemail= this._userDBContext.Users.Where(a => a.Email == email).FirstOrDefault(); 
+                var Isemail = this._userDBContext.Users.Where(a => a.Email == email).FirstOrDefault();
                 //user = _userDBContext.Users.FirstOrDefault(x => x.Email == user.Email);
                 //long UserId = user.userId;
 
 
                 if (Isemail != null)
                 {
-                    string Token = GenerateToken( email,Isemail.userId);
-                    
+                    string Token = GenerateToken(email, Isemail.userId);
+
                     MSMQService sMQService = new MSMQService();
 
                     sMQService.SendMessage(Token);
@@ -141,6 +142,39 @@ namespace Repository.Service
                 return null;
             }
 
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool ResetPassword(string email, ResetPasswordModel resetPasswordModel)
+        {
+            try
+            {
+
+                var user = _userDBContext.Users.Where(a => a.Email == email).FirstOrDefault();
+                if (user != null && resetPasswordModel.NewPassword == resetPasswordModel.ConfirmPassword)
+                {
+                    user.Password = resetPasswordModel.NewPassword;
+                    _userDBContext.Users.Update(user);
+                    _userDBContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public IEnumerable<UserEntity> GetUsers()
+        {
+            try
+            {
+                return _userDBContext.Users;
+            }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
