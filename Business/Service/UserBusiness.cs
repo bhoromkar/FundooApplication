@@ -18,11 +18,11 @@ namespace Business.Service
             this._userRepository = userRepository;
         }
 
-        public string Forgetpassword(string email )
+        public string ForgetPassword(string email )
         {
             try
             {
-                return _userRepository.Forgetpassword(email);
+                return _userRepository.ForgetPassword(email);
             }
             catch (Exception ex)
             {

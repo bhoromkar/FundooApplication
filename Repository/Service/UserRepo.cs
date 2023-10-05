@@ -43,9 +43,9 @@ namespace Repository.Service
                 if (user != null)
                 {
 
-                    var tokenstring = GenerateToken(user.Email, user.userId);
+                    var tokenString = GenerateToken(user.Email, user.userId);
                     UserLoginEntity userLoginEntity = new UserLoginEntity();
-                    userLoginEntity.Token = tokenstring;
+                    userLoginEntity.Token = tokenString;
                     userLoginEntity.Email = user.Email;
                     userLoginEntity.Password = user.Password;
                     return userLoginEntity;
@@ -82,19 +82,19 @@ namespace Repository.Service
 
         private string GenerateToken(string email, long userId)
         {
-            var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Iconfiguration["JWT:Key"]));
-            var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Iconfiguration["JWT:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var claims = new[]
             {
           new Claim(ClaimTypes.Email, email),
           new Claim("UserID", userId.ToString()),
 
             };
-            var Token = new JwtSecurityToken(Iconfiguration["JWT:Issuer"],
+            var token = new JwtSecurityToken(Iconfiguration["JWT:Issuer"],
                 Iconfiguration["JWT:Audience"], claims,
                 expires: DateTime.Now.AddMinutes(60), signingCredentials: credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(Token);
+            return new JwtSecurityTokenHandler().WriteToken(token);
 
         }
 
@@ -120,7 +120,13 @@ namespace Repository.Service
             }
 
         }
-        public string Forgetpassword(string email)
+        /// <summary>
+        /// This method is called  when the user  registration is successful and  the user  registration has been successfully.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns> This method return  token to user mail</returns>
+        /// <exception cref="Exception"></exception>
+        public string ForgetPassword(string email)
         {
             try
             {
@@ -131,13 +137,13 @@ namespace Repository.Service
 
                 if (Isemail != null)
                 {
-                    string Token = GenerateToken(email, Isemail.userId);
+                    string token = GenerateToken(email, Isemail.userId);
 
                     MSMQService sMQService = new MSMQService();
 
-                    sMQService.SendMessage(Token);
+                    sMQService.SendMessage(token);
 
-                    return Token;
+                    return token;
                 }
                 return null;
             }

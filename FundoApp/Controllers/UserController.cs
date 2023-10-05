@@ -28,7 +28,7 @@ namespace FundoApp.Controllers
 
             if (registrationModel == null)
             {
-                return NotFound("Deatils missing");
+                return NotFound("Details missing");
             }
             UserEntity user = _userBusiness.UserRegistration(registrationModel);
             return Ok(user);
@@ -53,10 +53,10 @@ namespace FundoApp.Controllers
         {
             try
             {
-                var result = _userBusiness.Forgetpassword(email);
+                var result = _userBusiness.ForgetPassword(email);
                 if (result != null)
                 {
-                    return Ok(new { success = true, message = "password link sent succesfully" });
+                    return Ok(new { success = true, message = "password link sent Succesfully" });
                 }
                 return NotFound(new { success = false, message = "Invalid Email!" });
 
