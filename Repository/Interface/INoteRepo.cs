@@ -3,6 +3,7 @@ using Repository.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace Repository.Interface
 {
@@ -14,7 +15,13 @@ namespace Repository.Interface
 
         public NoteEntity GetNoteById(long noteId, long userId);
         public bool IsDeleteNote(long noteId, long userId);
-
+       public  bool IsPin(long noteId, long userId);
+        public string ChangeColor(string newColor, long userId, long noteId);
+        public bool IsArchive(long userId, long noteId);
+        public bool IsTrash(long userId, long noteId);
+        public bool RemindMe(long userId, long noteId);
+//public string UploadImage(FileUploadModel fileUploadModel, long noteId, long userId);
+        public string UploadImage(IFormFile image, long noteId, long userId);
 
     }
 }

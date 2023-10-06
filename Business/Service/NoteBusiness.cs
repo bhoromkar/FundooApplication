@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace Business.Service
 {
@@ -89,6 +90,79 @@ namespace Business.Service
             }
         }
 
+        public bool IsPinNote(long noteId, long userId)
+        {
+            
+            try
+            {
+                return noteRepo.IsPin(noteId, userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string ChangeColor(string newColor, long userId, long noteId)
+        {
+            try
+            {
+                return noteRepo.ChangeColor(newColor, userId, noteId);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool IsArchive(long userId, long noteId)
+        {
+            try
+            {
+                return noteRepo.IsArchive(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool IsTrash(long userId, long noteId)
+        {
+            try
+            {
+                return noteRepo.IsTrash(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public bool RemindMe(long userId, long noteId)
+        {
+            try
+            {
+                return noteRepo.RemindMe(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string UploadImage(IFormFile image, long noteId, long userId)
+        {
+            try
+            {
+                return noteRepo.UploadImage(image, noteId, userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
 
