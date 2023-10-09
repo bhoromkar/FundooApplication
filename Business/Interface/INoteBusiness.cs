@@ -21,5 +21,6 @@ namespace Business.Interface
         public bool IsTrash(long userId, long noteId);
         public bool RemindMe(long userId, long noteId);
         public string  UploadImage(IFormFile image, long noteId, long userId);
+        public IEnumerable<NoteEntity> Search( string data, long userId);
     }
 }

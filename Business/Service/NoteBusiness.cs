@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Business.Service
 {
@@ -157,6 +158,17 @@ namespace Business.Service
             try
             {
                 return noteRepo.UploadImage(image, noteId, userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public IEnumerable<NoteEntity> Search( string data, long userId)
+        {
+            try
+            {
+                return noteRepo.Search( data, userId);
             }
             catch (Exception ex)
             {

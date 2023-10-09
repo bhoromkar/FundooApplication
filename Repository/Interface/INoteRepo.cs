@@ -22,6 +22,6 @@ namespace Repository.Interface
         public bool RemindMe(long userId, long noteId);
 //public string UploadImage(FileUploadModel fileUploadModel, long noteId, long userId);
         public string UploadImage(IFormFile image, long noteId, long userId);
-
+       public IEnumerable<NoteEntity> Search( string data, long userId);
     }
 }
