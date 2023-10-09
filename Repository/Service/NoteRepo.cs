@@ -298,7 +298,8 @@ namespace Repository.Service
         public string UploadImage(IFormFile image, long noteId, long userId)
         {
             try
-            { var note = _userDBContext.Note.First( x => x.NoteId == noteId);
+            {
+                var note = _userDBContext.Note.First(x => x.NoteId == noteId);
                 if (note != null)
                 {
 
@@ -312,29 +313,53 @@ namespace Repository.Service
                         }
                         using (FileStream fs = File.Create(path + image.FileName))
                         {
-                           // image.FileName.CopyTo(fs);
+                            // image.FileName.CopyTo(fs);
                             note.Image = image.FileName;
                             _userDBContext.Note.Update(note);
                             _userDBContext.SaveChanges();
                             fs.Flush();
-                            
+
                             return "Uploaded successfully.";
 
-                            
+
                         }
 
                     }
-                    
+
                 }
                 return null;
 
-            
+
             }
             catch (Exception ex)
             {
 
                 throw new Exception(ex.Message);
 
+            }
+        }
+
+        public IEnumerable<NoteEntity> Search( string data, long userId)
+        {
+            try
+            {
+                var result = _userDBContext.Users.First(x => x.userId == userId);
+                if (result != null)
+                {
+                    var note = _userDBContext.Note.Where(c => (c.NoteDescription.Contains(data) || c.NoteTitle.Contains(data))).ToList();
+                    if (note != null)
+                    {
+                        return note;
+
+                    }
+
+                }
+                return null;
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

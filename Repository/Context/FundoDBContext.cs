@@ -16,6 +16,10 @@ namespace Repository.Context
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<NoteEntity> Note {  get; set; }
 
+        public DbSet<CollabEntity> Collab { get; set; }
+
+
+
         /* protected override void OnModelCreating(ModelBuilder modelBuilder)
          {
              modelBuilder.Entity<UserEntity>().HasData(new UserEntity
