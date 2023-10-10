@@ -47,6 +47,9 @@ namespace FundoApp
             services.AddTransient<INoteRepo, NoteRepo>();
             services.AddTransient<ICollabBusiness, CollabBusiness>();
             services.AddTransient<ICollabRepo, CollabRepo>();
+            services.AddTransient<ILabelBusiness, LabelBusiness>();
+            services.AddTransient<ILabelRepo, LabelRepo>();
+
 
             //services.AddDbContext<FundoDBContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FundoDB"))); //NULL ,Value cannot be null. (Parameter 'connectionString')
 

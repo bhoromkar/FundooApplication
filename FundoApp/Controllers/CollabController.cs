@@ -4,6 +4,8 @@ using Common.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System;
 
 namespace FundoApp.Controllers
 {
@@ -38,6 +40,7 @@ namespace FundoApp.Controllers
         [Route("getAll")]
         public IActionResult GetAll()
         {
+            // long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value
             long userId = long.Parse(User.FindFirst("UserID").Value);
             var result = _collabBusiness.GetAll(userId);
             if (result != null)
@@ -61,7 +64,11 @@ namespace FundoApp.Controllers
         [Route("GetByID")]
         public IActionResult GetById(long collabId)
 
+
         {
+           // long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+           // long userId = long.Parse(User.FindFirst("UserID").Value);
+
             long userId = long.Parse(User.FindFirst("UserID").Value);
             var result = _collabBusiness.GetById(collabId, userId);
             if (result != null)

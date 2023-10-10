@@ -40,14 +40,14 @@ namespace Repository.Service
                 var result = Authenticate(user);
 
                 // var user = _userDBContext.Users.FirstOrDefault(x => x.Email == userLoginToken.LoginModel.Email && x.Password == userLoginToken.LoginModel.Password);
-                if (user != null)
+                if (result!= null)
                 {
 
-                    var tokenString = GenerateToken(user.Email, user.userId);
+                    var tokenString = GenerateToken(result.Email, result.userId);
                     UserLoginEntity userLoginEntity = new UserLoginEntity();
                     userLoginEntity.Token = tokenString;
-                    userLoginEntity.Email = user.Email;
-                    userLoginEntity.Password = user.Password;
+                    userLoginEntity.Email = result.Email;
+                    userLoginEntity.Password = result.Password;
                     return userLoginEntity;
 
 

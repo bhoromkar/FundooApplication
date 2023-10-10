@@ -115,6 +115,8 @@ namespace Repository.Service
 
         public CollabEntity GetById(long collabId, long userId)
         {
+
+         
             var result = _userDBContext.Collab.First(X => X.UserId == userId);
             if (result != null)
             {
