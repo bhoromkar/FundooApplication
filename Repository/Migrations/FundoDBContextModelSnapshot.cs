@@ -43,6 +43,31 @@ namespace Repository.Migrations
                     b.ToTable("Collab");
                 });
 
+            modelBuilder.Entity("Repository.Entity.LabelEntity", b =>
+                {
+                    b.Property<long>("LabelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LabelName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("NoteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("LabelId");
+
+                    b.HasIndex("NoteId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Label");
+                });
+
             modelBuilder.Entity("Repository.Entity.NoteEntity", b =>
                 {
                     b.Property<long>("NoteId")
@@ -108,6 +133,21 @@ namespace Repository.Migrations
                     b.HasKey("userId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Repository.Entity.LabelEntity", b =>
+                {
+                    b.HasOne("Repository.Entity.NoteEntity", "Note")
+                        .WithMany()
+                        .HasForeignKey("NoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Repository.Entity.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
