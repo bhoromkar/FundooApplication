@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Threading.Tasks;
 
 namespace Repository.Service
 {
@@ -39,15 +40,15 @@ namespace Repository.Service
                 user.Password = loginModel.Password;
                 var result = Authenticate(user);
 
-                // var user = _userDBContext.Users.FirstOrDefault(x => x.Email == userLoginToken.LoginModel.Email && x.Password == userLoginToken.LoginModel.Password);
+                // var result = _userDBContext.Users.FirstOrDefault(x => x.Email == userLoginToken.LoginModel.Email && x.Password == userLoginToken.LoginModel.Password);
                 if (result!= null)
                 {
 
-                    var tokenString = GenerateToken(result.Email, result.userId);
+                    var tokenString =  GenerateToken(result.Email, result.userId);
                     UserLoginEntity userLoginEntity = new UserLoginEntity();
                     userLoginEntity.Token = tokenString;
                     userLoginEntity.Email = result.Email;
-                    userLoginEntity.Password = result.Password;
+                    userLoginEntity.Password =Encrypt(result.Password);
                     return userLoginEntity;
 
 
@@ -64,7 +65,8 @@ namespace Repository.Service
         {
             try
             {
-                var result = _userDBContext.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+
+                var result = _userDBContext.Users.FirstOrDefault(x => x.Email == user.Email && (x.Password) == user.Password);
                 if (result != null)
                 {
 
@@ -108,7 +110,7 @@ namespace Repository.Service
                 userEntity.FirstName = registrationModel.FirstName;
                 userEntity.LastName = registrationModel.LastName;
                 userEntity.Email = registrationModel.Email;
-                userEntity.Password = registrationModel.Password;
+                userEntity.Password = Encrypt(registrationModel.Password);
                 _userDBContext.Users.Add(userEntity);
                 _userDBContext.SaveChanges();
 
@@ -162,7 +164,7 @@ namespace Repository.Service
                 var user = _userDBContext.Users.Where(a => a.Email == email).FirstOrDefault();
                 if (user != null && resetPasswordModel.NewPassword == resetPasswordModel.ConfirmPassword)
                 {
-                    user.Password = resetPasswordModel.NewPassword;
+                    user.Password =Encrypt( resetPasswordModel.NewPassword);
                     _userDBContext.Users.Update(user);
                     _userDBContext.SaveChanges();
                     return true;
@@ -180,6 +182,38 @@ namespace Repository.Service
             try
             {
                 return _userDBContext.Users;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        // Function to  encrypt a string
+        public  string Encrypt(string password)
+
+        {
+            try
+            {
+                    byte[] bytes = Encoding.UTF8.GetBytes(password);
+                    string encodedPassword = Convert.ToBase64String(bytes);
+                    return encodedPassword;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        // Function to decrypt a string
+        public  string Decrypt(string encodedPassword)
+        {
+            try
+            {
+                byte[] bytes = Convert.FromBase64String(encodedPassword);
+                string decodedPassword = Encoding.UTF8.GetString(bytes);
+                return decodedPassword;
             }
             catch (Exception ex)
             {

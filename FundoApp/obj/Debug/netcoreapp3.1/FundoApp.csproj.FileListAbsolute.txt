@@ -65,3 +65,5 @@ C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.c
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.dll
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.pdb
 C:\Users\adesh\source\repos\FundoApp\FundoApp\obj\Debug\netcoreapp3.1\FundoApp.genruntimeconfig.cache
+C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Redis.dll
+C:\Users\adesh\source\repos\FundoApp\FundoApp\bin\Debug\netcoreapp3.1\StackExchange.Redis.StrongName.dll
