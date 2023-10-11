@@ -83,7 +83,7 @@ namespace Business.Service
         {
             try
             {
-                return  noteRepo.IsDeleteNote( noteId,userId);
+                return  noteRepo.IsDeleteNote(noteId,userId);
             }
             catch (Exception ex)
             {
@@ -121,7 +121,7 @@ namespace Business.Service
         {
             try
             {
-                return noteRepo.IsArchive(userId, noteId);
+                return noteRepo.IsArchive(userId,noteId);
             }
             catch (Exception ex)
             {

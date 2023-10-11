@@ -99,6 +99,11 @@ namespace FundoApp
                     }
                 });
             });
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
+            }
+                );
             services.AddMvc();
             services.AddControllers();
         }

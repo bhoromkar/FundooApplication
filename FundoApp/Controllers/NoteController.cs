@@ -9,6 +9,11 @@ using Experimental.System.Messaging;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Caching.Distributed;
+using Repository.Entity;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FundoApp.Controllers
 {
@@ -19,11 +24,13 @@ namespace FundoApp.Controllers
     {
         public readonly INoteBusiness _noteBusiness;
         public static IWebHostEnvironment _webHostEnvironment;
+        public readonly IDistributedCache _distributedCache;
 
-        public NoteController(INoteBusiness noteBusiness, IWebHostEnvironment webHostEnvironment)
+        public NoteController(INoteBusiness noteBusiness, IWebHostEnvironment webHostEnvironment, IDistributedCache distributedCache)
         {
             this._noteBusiness = noteBusiness;
             _webHostEnvironment = webHostEnvironment;
+            this._distributedCache = distributedCache;
         }
 
         [HttpPost]
@@ -32,7 +39,7 @@ namespace FundoApp.Controllers
         {
             long userId = long.Parse(User.FindFirst("UserID").Value);
             var result = _noteBusiness.CreateNote(noteModel, userId);
-            if (result != null)
+             if (result != null)
             {
                 return Ok(new { success = true, Message = "Note Added Succesfully", result });
             }
@@ -75,6 +82,7 @@ namespace FundoApp.Controllers
         public IActionResult GetAllNote()
         {
             long userId = long.Parse(User.FindFirst("UserID").Value);
+          
             var result = _noteBusiness.GetAllNotes(userId);
             if (result != null)
             {
@@ -116,7 +124,7 @@ namespace FundoApp.Controllers
         {
 
             long userId = long.Parse(User.FindFirst("UserID").Value);
-            var result = _noteBusiness.IsArchive(noteId, userId);
+            var result = _noteBusiness.IsArchive( userId,noteId);
             if (result == true)
             {
                 return Ok(new { success = true, Message = "Note Archieved" });
@@ -129,7 +137,7 @@ namespace FundoApp.Controllers
         public IActionResult ChangeColor(string newColor, long noteId)
         {
             long userId = long.Parse(User.FindFirst("UserID").Value);
-            var result = _noteBusiness.ChangeColor(newColor, noteId, userId);
+            var result = _noteBusiness.ChangeColor(newColor, userId, noteId);
             if (result != null)
             {
                 return Ok(new { success = true, Message = "Note Color Changed" });
@@ -141,7 +149,7 @@ namespace FundoApp.Controllers
         public IActionResult IsTrash(long noteId)
         {
             long userId = long.Parse(User.FindFirst("UserID").Value);
-            var result = _noteBusiness.IsTrash(noteId, userId);
+            var result = _noteBusiness.IsTrash(userId,noteId);
             if (result == true)
             {
                 return Ok(new { success = true, Message = "Note Trashed" });
@@ -153,7 +161,7 @@ namespace FundoApp.Controllers
         public IActionResult Reminder(long noteId)
         {
             long userId = long.Parse(User.FindFirst("UserID").Value);
-            var result = _noteBusiness.RemindMe(noteId, userId);
+            var result = _noteBusiness.RemindMe(userId,noteId);
             if (result == true)
             {
                 return Ok(new { success = true, Message = "Note Reminder" });
@@ -191,7 +199,54 @@ namespace FundoApp.Controllers
                 return Ok(new { success = true, Message = "Data Retrieved", result });
             }
             return NotFound(new { success = false, Message = "Data  not Retrieved" });
+
+          
         }
+        /// <summary>
+        /// 
+        ///
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        [HttpGet("redis")]
+        public IActionResult GetAllNotesUsingRedisCache()
+        {
+            try
+            {
+                long UserId = long.Parse(User.FindFirst("UserID").Value);
+
+                var cacheKey = "List";
+                string serializedCustomerList;
+
+                var redisCustomerList =  _distributedCache.Get(cacheKey);
+                if (redisCustomerList != null)
+                {
+                    serializedCustomerList = Encoding.UTF8.GetString(redisCustomerList);
+                    //getallnotes
+                    var notes = JsonConvert.DeserializeObject<IEnumerable<NoteEntity>>(serializedCustomerList);
+
+                    return this.Ok(new { success = true, message = "Retrive All Successful ", data = notes });
+                }
+                else
+                {
+                    var notes = _noteBusiness.GetAllNotes(UserId);
+                    serializedCustomerList = JsonConvert.SerializeObject(notes);
+                    redisCustomerList = Encoding.UTF8.GetBytes(serializedCustomerList);
+                    var entry = new DistributedCacheEntryOptions()
+                        .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10))
+                        .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+                     _distributedCache.Set(cacheKey, redisCustomerList, entry);
+
+                    return this.Ok(new { success = true, message = "Retrive All Successful ", data = notes });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
     }
 }
 

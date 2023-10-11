@@ -235,7 +235,7 @@ namespace Repository.Service
                     var note = _userDBContext.Note.First(x => x.NoteId == noteId);
                     if (note != null)
                     {
-                        if (note.Reminder == DateTime.Now)
+                        if (note.Reminder <= DateTime.Now)
                         {
                             return true;
                         }
