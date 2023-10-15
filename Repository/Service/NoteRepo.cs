@@ -362,6 +362,32 @@ namespace Repository.Service
                 throw new Exception(ex.Message);
             }
         }
+
+        public NoteEntity CreateCopy(long NoteId, long UserId)
+        {
+            NoteEntity OriginalNote = GetNoteById(NoteId, UserId);
+            if (OriginalNote == null)
+            {
+                return null;
+            }
+
+            NoteEntity note = new NoteEntity();
+            note.NoteTitle = OriginalNote.NoteTitle;
+            note.NoteDescription = OriginalNote.NoteDescription;
+            note.Reminder = OriginalNote.Reminder;
+            note.Image = OriginalNote.Image;
+            note.IsArchive = OriginalNote.IsArchive;
+            note.IsPin = OriginalNote.IsPin;
+            note.IsTrash = OriginalNote.IsArchive;
+            note.Color = OriginalNote.Color;
+            note.CreatedTime = DateTime.Now;
+            note.UserId= UserId;
+            _userDBContext.Note.Add(note);
+            _userDBContext.SaveChanges();
+            return note;
+        }
+
+
     }
 }
 

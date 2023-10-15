@@ -23,5 +23,7 @@ namespace Repository.Interface
 //public string UploadImage(FileUploadModel fileUploadModel, long noteId, long userId);
         public string UploadImage(IFormFile image, long noteId, long userId);
        public IEnumerable<NoteEntity> Search( string data, long userId);
+       public NoteEntity CreateCopy(long NoteId, long UserId);
+
     }
 }

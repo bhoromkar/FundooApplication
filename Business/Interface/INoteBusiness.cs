@@ -22,5 +22,7 @@ namespace Business.Interface
         public bool RemindMe(long userId, long noteId);
         public string  UploadImage(IFormFile image, long noteId, long userId);
         public IEnumerable<NoteEntity> Search( string data, long userId);
+        public NoteEntity CreateCopy(long NoteId, long UserId);
+
     }
 }

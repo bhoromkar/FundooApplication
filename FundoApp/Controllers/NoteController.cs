@@ -14,6 +14,7 @@ using Repository.Entity;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace FundoApp.Controllers
 {
@@ -37,7 +38,7 @@ namespace FundoApp.Controllers
         [Route("Create")]
         public IActionResult CreateNote(NoteModel noteModel)
         {
-            long userId = long.Parse(User.FindFirst("UserID").Value);
+            var userId = long.Parse(User.FindFirst("UserID").Value);
             var result = _noteBusiness.CreateNote(noteModel, userId);
              if (result != null)
             {
@@ -52,7 +53,7 @@ namespace FundoApp.Controllers
         [Route("Update")]
         public IActionResult UpdateNote(NoteModel noteModel, long noteId)
 
-        {
+        {  
             long userId = long.Parse(User.FindFirst("UserID").Value);
             var result = _noteBusiness.UpdateNote(noteModel, userId, noteId);
             if (result != null)
@@ -190,17 +191,36 @@ namespace FundoApp.Controllers
 
         [HttpGet]
         [Route("Search")]
-        public IActionResult search( string data)
+        public IActionResult Search(string data)
         {
             long userId = long.Parse(User.FindFirst("UserID").Value);
-            var result = _noteBusiness.Search( data, userId);
+            var result = _noteBusiness.Search(data, userId);
             if (result != null)
             {
                 return Ok(new { success = true, Message = "Data Retrieved", result });
             }
             return NotFound(new { success = false, Message = "Data  not Retrieved" });
 
-          
+
+        }
+        /// <summary>
+        /// this method 
+        /// </summary>
+        /// <param name="NoteId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Copy")]
+        public IActionResult CopyNote(int NoteId)
+        {
+            long userId = long.Parse(User.FindFirst("UserID").Value);
+            var result = _noteBusiness.CreateCopy(NoteId, userId);
+            if (result != null)
+            {
+                return Ok(new { success = true, Message = "Copy Created", result });
+            }
+            return NotFound(new { success = false, Message = "Copy Not Created" });
+
+
         }
         /// <summary>
         /// 

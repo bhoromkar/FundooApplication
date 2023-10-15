@@ -1,9 +1,18 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections.Generic;
+using System;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading.Tasks;
 using Business.Interface;
 using Business.Service;
 using Common.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
+using Repository.Context;
+using Repository.Entity;
 
 namespace FundoApp.Controllers
 {
@@ -13,10 +22,15 @@ namespace FundoApp.Controllers
     public class LabelController : Controller
     {
         public readonly ILabelBusiness _labelBusiness;
+        public readonly IDistributedCache _distributedCache;
+        public readonly FundoDBContext _userDBContext;
 
-        public LabelController(ILabelBusiness labelBusiness)
+
+        public LabelController(ILabelBusiness labelBusiness , IDistributedCache distributedCache,FundoDBContext userDBContext)
         {
             this._labelBusiness = labelBusiness;
+           this._distributedCache= distributedCache;
+            this._userDBContext = userDBContext;
         }
         [HttpPost]
         [Route("Create")]
@@ -24,7 +38,7 @@ namespace FundoApp.Controllers
         {
 
 
-            long userId = long.Parse(User.FindFirst("UserID").Value);
+            var userId = long.Parse(User.FindFirst("UserID").Value);
             var result = _labelBusiness.Create(labelModel, userId);
             if (result != null)
             {
@@ -44,14 +58,14 @@ namespace FundoApp.Controllers
 
             long userId = long.Parse(User.FindFirst("UserID").Value);
             var result = _labelBusiness.Update(labelModel, userId);
-            if (result != null)
+            if(result == null) return NotFound(new { success = false, Message = "Label Not Updated" });
             {
                 {
                     return Ok(new { success = true, Message = "Label Updated", result });
                 }
             }
 
-            return NotFound(new { success = false, Message = "Label Not Updated" });
+            //return NotFound(new { success = false, Message = "Label Not Updated" });
 
         }
         [HttpGet]
@@ -90,5 +104,34 @@ namespace FundoApp.Controllers
             return NotFound(new { success = false, Message = "Label Not Deleted" });
 
         }
+
+
+        public async Task<IActionResult> GetAllCollabUsingRedisCache()
+        {
+            long userId = long.Parse(User.FindFirst("UserID").Value);
+
+            var cacheKey = "LabelList";
+            string serializedLabelList;
+            var LabelList = new List<LabelEntity>();
+            var redisLabelList = await _distributedCache.GetAsync(cacheKey);
+            if (redisLabelList != null)
+            {
+                serializedLabelList = Encoding.UTF8.GetString(redisLabelList);
+                LabelList = JsonConvert.DeserializeObject<List<LabelEntity>>(serializedLabelList);
+            }
+            else
+            {
+                LabelList = _userDBContext.Label.ToList();
+                serializedLabelList = JsonConvert.SerializeObject(LabelList);
+                redisLabelList = Encoding.UTF8.GetBytes(serializedLabelList);
+
+                var options = new DistributedCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+                await _distributedCache.SetAsync(cacheKey, redisLabelList, options);
+            }
+            return Ok(LabelList);
+        }
+
     }
 }
