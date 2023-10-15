@@ -175,6 +175,19 @@ namespace Business.Service
                 throw new Exception(ex.Message);
             }
         }
+
+        public NoteEntity CreateCopy(long NoteId, long UserId)
+        {
+            try
+            {
+                return noteRepo.CreateCopy(NoteId, UserId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }
 
