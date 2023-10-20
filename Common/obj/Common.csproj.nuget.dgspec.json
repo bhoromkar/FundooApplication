@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\adesh\\source\\repos\\FundoApp\\Common\\Common.csproj": {}
+    "C:\\Users\\adesh\\source\\repos\\fundoo\\FundoApp\\Common\\Common.csproj": {}
   },
   "projects": {
-    "C:\\Users\\adesh\\source\\repos\\FundoApp\\Common\\Common.csproj": {
+    "C:\\Users\\adesh\\source\\repos\\fundoo\\FundoApp\\Common\\Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\adesh\\source\\repos\\FundoApp\\Common\\Common.csproj",
+        "projectUniqueName": "C:\\Users\\adesh\\source\\repos\\fundoo\\FundoApp\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "C:\\Users\\adesh\\source\\repos\\FundoApp\\Common\\Common.csproj",
+        "projectPath": "C:\\Users\\adesh\\source\\repos\\fundoo\\FundoApp\\Common\\Common.csproj",
         "packagesPath": "C:\\Users\\adesh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\adesh\\source\\repos\\FundoApp\\Common\\obj\\",
+        "outputPath": "C:\\Users\\adesh\\source\\repos\\fundoo\\FundoApp\\Common\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -48,6 +48,18 @@
             "Experimental.System.Messaging": {
               "target": "Package",
               "version": "[1.1.0, )"
+            },
+            "Microsoft.AspNet.Cors": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Cors": {
+              "target": "Package",
+              "version": "[1.1.2, )"
             },
             "Microsoft.Extensions.Caching.Redis": {
               "target": "Package",

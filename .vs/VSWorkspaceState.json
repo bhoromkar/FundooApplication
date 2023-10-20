@@ -1,10 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Common",
-    "\\Common\\Model",
-    "\\MessageService"
+    "\\FundoApp",
+    "\\FundoApp\\Controllers"
   ],
-  "SelectedNode": "\\MessageService\\MessageService",
   "PreviewInSolutionExplorer": false
 }

@@ -106,6 +106,8 @@ namespace FundoApp.Controllers
         }
 
 
+        [HttpGet]
+        [Route("redislabel")]
         public async Task<IActionResult> GetAllCollabUsingRedisCache()
         {
             long userId = long.Parse(User.FindFirst("UserID").Value);

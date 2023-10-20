@@ -228,7 +228,8 @@ namespace FundoApp.Controllers
         /// </summary>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        [HttpGet("redis")]
+        [HttpGet]
+        [Route("redisnote")]
         public IActionResult GetAllNotesUsingRedisCache()
         {
             try
