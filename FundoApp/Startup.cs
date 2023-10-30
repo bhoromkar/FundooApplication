@@ -53,7 +53,12 @@ namespace FundoApp
 
             //services.AddDbContext<FundoDBContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FundoDB"))); //NULL ,Value cannot be null. (Parameter 'connectionString')
 
-
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
                {
@@ -99,12 +104,14 @@ namespace FundoApp
                     }
                 });
             });
+            services.Configure<MvcOptions>(options =>
+            
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost:6379";
                 //options.InstanceName = "list";
             }
-                );
+                ));
             services.AddMvc();
             services.AddControllers();
         }
@@ -125,6 +132,8 @@ namespace FundoApp
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors("MyPolicy");
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             { 

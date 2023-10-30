@@ -124,7 +124,7 @@ namespace FundoApp.Controllers
         }
         [Authorize]
         [HttpGet]
-        [Route("Redis")]
+        [Route("rediscollab")]
         //Redis Implementation 
         public async Task<IActionResult> GetAllCollabUsingRedisCache()
         {

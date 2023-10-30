@@ -16,6 +16,7 @@ using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace Repository.Service
 {
@@ -48,7 +49,9 @@ namespace Repository.Service
                     UserLoginEntity userLoginEntity = new UserLoginEntity();
                     userLoginEntity.Token = tokenString;
                     userLoginEntity.Email = result.Email;
+                    userLoginEntity.userId=result.userId;
                     userLoginEntity.Password =Encrypt(result.Password);
+
                     return userLoginEntity;
 
 
@@ -94,7 +97,7 @@ namespace Repository.Service
             };
             var token = new JwtSecurityToken(Iconfiguration["JWT:Issuer"],
                 Iconfiguration["JWT:Audience"], claims,
-                expires: DateTime.Now.AddMinutes(60), signingCredentials: credentials);
+                expires: DateTime.Now.AddDays(60), signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
 
@@ -136,14 +139,14 @@ namespace Repository.Service
                 //user = _userDBContext.Users.FirstOrDefault(x => x.Email == user.Email);
                 //long UserId = user.userId;
 
-
+                
                 if (Isemail != null)
                 {
                     string token = GenerateToken(email, Isemail.userId);
-
+                    string tokenwithUrl= "http://localhost:4200/reset-password/" +token;
                     MSMQService sMQService = new MSMQService();
 
-                    sMQService.SendMessage(token);
+                    sMQService.SendMessage(tokenwithUrl);
 
                     return token;
                 }
