@@ -24,6 +24,7 @@ namespace Repository.Interface
         public string UploadImage(IFormFile image, long noteId, long userId);
        public IEnumerable<NoteEntity> Search( string data, long userId);
        public NoteEntity CreateCopy(long NoteId, long UserId);
+        public bool IsunArchive(long userId, long noteId);
 
     }
 }

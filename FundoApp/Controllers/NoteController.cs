@@ -119,7 +119,7 @@ namespace FundoApp.Controllers
             }
             return BadRequest(new { success = false, Message = "Failed to Pin" });
         }
-        [HttpPatch]
+        [HttpPost]
         [Route("Archieve")]
         public IActionResult IsArchive(long noteId)
         {
@@ -132,8 +132,21 @@ namespace FundoApp.Controllers
             }
             return BadRequest(new { success = false, Message = "Failed to Archieve" });
         }
+        [HttpPost]
+        [Route("UnArchieve")]
+        public IActionResult IsunArchive(long noteId)
+        {
 
-        [HttpPatch]
+            long userId = long.Parse(User.FindFirst("UserID").Value);
+            var result = _noteBusiness.IsunArchive(userId, noteId);
+            if (result == true)
+            {
+                return Ok(new { success = true, Message = "Note unArchieved" });
+            }
+            return BadRequest(new { success = false, Message = "Failed to unArchieve" });
+        }
+
+        [HttpPost]
         [Route("ChangeColor")]
         public IActionResult ChangeColor(string newColor, long noteId)
         {
@@ -145,7 +158,7 @@ namespace FundoApp.Controllers
             }
             return BadRequest(new { success = false, Message = "Failed to Change Color" });
         }
-        [HttpPatch]
+        [HttpPost]
         [Route("Trash")]
         public IActionResult IsTrash(long noteId)
         {

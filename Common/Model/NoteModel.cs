@@ -12,9 +12,9 @@ namespace Common.Model
         public string Color { get; set; }
         public string Image { get; set; } 
         public DateTime Reminder { get; set; }
-        public bool IsPin { get; set; } = false;
-        public bool IsTrash { get; set; }=false;
-        public bool IsArchive { get; set; } = false;
+        public bool IsPin { get; set; }
+        public bool IsTrash { get; set; }
+        public bool IsArchive { get; set; }
 
 
 

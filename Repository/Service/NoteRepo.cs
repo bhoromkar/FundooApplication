@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Repository.Service
 {
@@ -178,7 +179,9 @@ namespace Repository.Service
                     var note = _userDBContext.Note.First(x => x.NoteId == noteId);
                     if (note.IsPin == false)
                     {
-                        return note.IsPin == true;
+                        note.IsPin = true;
+                        _userDBContext.SaveChanges();
+                        return true;    
                     }
                 }
 
@@ -199,8 +202,38 @@ namespace Repository.Service
                 if (result != null)
                 {
                     var note = _userDBContext.Note.First(x => x.NoteId == noteId);
-                    if (note.IsArchive == false)
+                    if (note.IsArchive!=true)
                     {
+                        note.IsArchive = true;
+                        _userDBContext.SaveChanges();
+                        return true;
+                    }
+
+
+                }
+
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+                ;
+            }
+        }
+        public bool IsunArchive(long userId, long noteId)
+        {
+            try
+            {
+                var result = _userDBContext.Users.First(x => x.userId == userId);
+                if (result != null)
+                {
+                    var note = _userDBContext.Note.First(x => x.NoteId == noteId);
+                    if (note.IsArchive != false)
+                    {
+                        note.IsArchive = false;
+                        _userDBContext.SaveChanges();
                         return true;
                     }
 
@@ -259,9 +292,17 @@ namespace Repository.Service
                 if (result != null)
                 {
                     var note = _userDBContext.Note.First(x => x.NoteId == noteId);
-                    if (note.IsTrash == false)
+                    if (note.IsTrash!=true)
                     {
+                        note.IsTrash = true;
+                        _userDBContext.SaveChanges();
                         return true;
+                    }
+                    else
+                    {
+                        note.IsTrash = false;
+                        _userDBContext.SaveChanges();
+                        return false;
                     }
 
                 }

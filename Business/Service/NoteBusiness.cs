@@ -58,7 +58,17 @@ namespace Business.Service
                 throw new Exception(ex.Message);
             }
         }
-
+        public bool IsunArchive(long userId, long noteId)
+        {
+            try
+            {
+                return noteRepo.IsunArchive(userId, noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public IEnumerable<NoteEntity> GetAllNotes( long userId)
         {
             try
