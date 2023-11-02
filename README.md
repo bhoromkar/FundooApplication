@@ -63,7 +63,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/bhoromkar/fundoo-app.git
+   git clone https://github.com/bhoromkar/FundooApplication.git
    ```
 
 2. Navigate to the project folder:
@@ -82,7 +82,7 @@ Before you begin, ensure you have met the following requirements:
 4. Install the required dependencies for the frontend (Angular example):
 
    ```bash
-   cd FundooApp.Client/angular
+   cd FundooApplication.Client/angular
    npm install
    ```
 
@@ -90,7 +90,7 @@ Before you begin, ensure you have met the following requirements:
 
 1. Configure the database connection in `appsettings.json` in the `FundooApp.Api` project.
 
-2. Set up authentication and authorization (e.g., JWT) according to your needs.
+2. Set up authentication FundooApplication and authorization (e.g., JWT) according to your needs.
 
 3. Configure the frontend to connect to the backend API by updating API endpoint URLs.
 
@@ -99,7 +99,7 @@ Before you begin, ensure you have met the following requirements:
 1. Build and run the backend API:
 
    ```bash
-   cd FundooApp.Api
+   cd FundooApplication.Api
    dotnet build
    dotnet run
    ```
@@ -107,7 +107,7 @@ Before you begin, ensure you have met the following requirements:
 2. Build and run the frontend (Angular example):
 
    ```bash
-   cd FundooApp.Client/angular
+   cd FundooApplication.Client/angular
    ng serve
    ```
 
