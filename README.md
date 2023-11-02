@@ -69,13 +69,13 @@ Before you begin, ensure you have met the following requirements:
 2. Navigate to the project folder:
 
    ```bash
-   cd fundoo-app
+   cd FundooApplication
    ```
 
 3. Install the required dependencies for the backend:
 
    ```bash
-   cd FundooApp.Api
+   cd FundooApplication.Api
    dotnet restore
    ```
 
